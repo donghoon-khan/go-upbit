@@ -2,9 +2,9 @@ package goupbit
 
 import "testing"
 
-func TestNewClientForQuotationApi(t *testing.T) {
-	quotationApi := newClientForQuotationApi()
-	if quotationApi == nil {
-		t.Fatalf("NewClientForQuotationApi(): Expected client not to be nil")
+func TestNewClient(t *testing.T) {
+	client := newClient()
+	if client == nil {
+		t.Fatalf("newClientForQuotationApi(): Expected client not to be nil")
 	}
 }

@@ -11,12 +11,10 @@ const (
 
 type client struct {
 	baseURL    string
-	accessKey  string
-	secretKey  string
 	httpClient *http.Client
 }
 
-func newClientForQuotationApi() *client {
+func newClient() *client {
 	return &client{
 		baseURL: UPBIT_BASE_URL,
 		httpClient: &http.Client{
