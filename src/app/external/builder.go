@@ -1,4 +1,4 @@
-package goupbit
+/*package main
 
 var builder = &holderBuilder{holder: Holder}
 
@@ -19,3 +19,4 @@ func (pHolderBuilder *holderBuilder) SetSecretKey(secretKey string) *holderBuild
 func GetHolderBuilder() *holderBuilder {
 	return builder
 }
+*/
