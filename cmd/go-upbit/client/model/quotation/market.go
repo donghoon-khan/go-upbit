@@ -2,22 +2,22 @@ package quotation
 
 import "encoding/json"
 
-type MarketCode struct {
+type Market struct {
 	Market      string `json:"market"`
 	KoreanName  string `json:"korean_name"`
 	EnglishName string `json:"english_name"`
-	Warning     string `json:"market_warning"`
+	Warning     string `json:"market_warning,omitempty"`
 }
 
-type MarketCodes struct {
-	items []MarketCode
+type Markets struct {
+	Items []Market
 }
 
-func MarketCodesFromJson(b []byte) (*MarketCodes, error) {
-	var marketCodes []MarketCode
+func GetMarketsFromJson(b []byte) (*Markets, error) {
+	var marketCodes []Market
 
 	e := json.Unmarshal(b, &marketCodes)
-	return &MarketCodes{
-		items: marketCodes,
+	return &Markets{
+		Items: marketCodes,
 	}, e
 }

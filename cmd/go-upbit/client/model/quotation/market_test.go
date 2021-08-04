@@ -5,15 +5,15 @@ import (
 	"testing"
 )
 
-func TestMarketCodesFromJson(t *testing.T) {
+func TestGetMarketsFromJson(t *testing.T) {
 	cases := []struct {
 		json     []byte
-		expected *MarketCodes
+		expected *Markets
 	}{
 		{
 			[]byte(`[{"market":"KRW-BTC", "korean_name":"비트코인", "english_name":"Bitcoin", "market_warning":"NONE"}]`),
-			&MarketCodes{
-				items: []MarketCode{
+			&Markets{
+				Items: []Market{
 					{
 						Market:      "KRW-BTC",
 						KoreanName:  "비트코인",
@@ -26,8 +26,8 @@ func TestMarketCodesFromJson(t *testing.T) {
 		{
 			[]byte(`[{"market":"USDT-LTC", "korean_name":"라이트코인", "english_name":"Litecoin", "market_warning":""},
 			{"market":"BTC-MANA", "korean_name":"디센트럴랜드", "english_name":"Decentraland", "market_warning":"CAUTION"}]`),
-			&MarketCodes{
-				items: []MarketCode{
+			&Markets{
+				Items: []Market{
 					{
 						Market:      "USDT-LTC",
 						KoreanName:  "라이트코인",
@@ -46,9 +46,9 @@ func TestMarketCodesFromJson(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		actual, e := MarketCodesFromJson(c.json)
+		actual, e := GetMarketsFromJson(c.json)
 		if !reflect.DeepEqual(actual, c.expected) {
-			t.Errorf("MarketCodesFromJson(%s) == \n%#v\nexpected \n%#v\n",
+			t.Errorf("GetMarketsFromJson(%s) == \n%#v\nexpected \n%#v\n",
 				c.json, actual, c.expected)
 		}
 		if e != nil {
