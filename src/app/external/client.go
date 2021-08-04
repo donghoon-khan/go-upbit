@@ -1,4 +1,4 @@
-/*package main
+package main
 
 import (
 	"log"
@@ -66,4 +66,3 @@ func main() {
 		}
 	}
 }
-*/
