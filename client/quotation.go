@@ -1,9 +1,9 @@
 package client
 
 import (
-	"encoding/json"
 	"net/http"
 
+	"github.com/donghoon-khan/go-upbit/client/model/quotation"
 	"github.com/google/go-querystring/query"
 )
 
@@ -11,26 +11,21 @@ type QuotationClient struct {
 	*http.Client
 }
 
-type MarketCode struct {
-	Market      string `json:"market"`
-	KoreanName  string `json:"korean_name"`
-	EnglishName string `json:"english_name"`
-	Warning     string `json:"market_warning"`
-}
+func (qc *QuotationClient) GetMarketCodes(isDetails bool) (*quotation.Markets, error) {
 
-func (qc *QuotationClient) GetMarketCodes(isDetails bool) []MarketCode {
-	var result []MarketCode
-	_ = qc.callByGetMethod(
+	markets, err := qc.callByGetMethod(
 		"/market/all",
 		struct {
 			IsDetails bool `url:"isDetails"`
-		}{isDetails},
-		&result,
-	)
-	return result
+		}{false})
+	if err != nil {
+		return nil, err
+	}
+
+	return quotation.GetMarketsFromJson(markets)
 }
 
-func (qc *QuotationClient) callByGetMethod(url string, queryValue interface{}, response interface{}) error {
+func (qc *QuotationClient) callByGetMethod(url string, queryValue interface{}) ([]byte, error) {
 	values, err := query.Values(queryValue)
 	if err != nil {
 		panic(err)
@@ -39,9 +34,8 @@ func (qc *QuotationClient) callByGetMethod(url string, queryValue interface{}, r
 
 	req, err := http.NewRequest("GET", apiUrl+"/"+apiVersion+url+"?"+encodedQuery, nil)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	result, _ := getResponse(qc.Client, req)
-	return json.Unmarshal(result, &response)
+	return getResponse(qc.Client, req)
 }

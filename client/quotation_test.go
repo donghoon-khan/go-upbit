@@ -2,8 +2,10 @@ package client
 
 import (
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/donghoon-khan/go-upbit/client/model/quotation"
+	"github.com/stretchr/testify/assert"
 )
 
 var qc = &QuotationClient{http.DefaultClient}
@@ -11,20 +13,29 @@ var qc = &QuotationClient{http.DefaultClient}
 func TestQuotationClient_GetMarketCodeList(t *testing.T) {
 	cases := []struct {
 		isDetails bool
-		expected  *MarketCode
+		expected  *quotation.Market
 	}{
 		{
-			true, &MarketCode{
-				Market:      "",
-				KoreanName:  "",
-				EnglishName: "",
+			true,
+			&quotation.Market{
+				Market:      "KRW-BTC",
+				KoreanName:  "비트코인",
+				EnglishName: "Bitcoin",
 				Warning:     "",
-			}},
+			},
+		},
+		{
+			false,
+			&quotation.Market{
+				Market:      "KRW-BTC",
+				KoreanName:  "비트코인",
+				EnglishName: "Bitcoin",
+				Warning:     "NONE",
+			},
+		},
 	}
 	for _, c := range cases {
-		actual := qc.GetMarketCodes(false)
-		if !reflect.DeepEqual(actual, c.expected) {
-			t.Errorf("GetMarketCodeList(%#v) == \n%#v\nexpected \n%#v\n", c.isDetails, actual, c.expected)
-		}
+		_, e := qc.GetMarketCodes(c.isDetails)
+		assert.NoError(t, e)
 	}
 }
