@@ -10,7 +10,6 @@ func TestGetCandlesFromJson(t *testing.T) {
 		json     []byte
 		expected *Candles
 	}{
-		// 분 캔들
 		{
 			[]byte(`[{"market":"KRW-BTC","candle_date_time_utc":"2021-08-04T14:57:00","candle_date_time_kst":"2021-08-04T23:57:00",
 			"opening_price":45301000.00000000,"high_price":45340000.00000000,"low_price":45281000.00000000,"trade_price":45338000.00000000,
@@ -33,7 +32,6 @@ func TestGetCandlesFromJson(t *testing.T) {
 				},
 			},
 		},
-		// 일 캔들
 		{
 			[]byte(`[{"market":"KRW-BTC","candle_date_time_utc":"2021-08-04T00:00:00","candle_date_time_kst":"2021-08-04T09:00:00",
 			"opening_price":44950000.00000000,"high_price":45511000.00000000,"low_price":44000000.00000000,"trade_price":45410000.00000000,
@@ -85,7 +83,6 @@ func TestGetCandlesFromJson(t *testing.T) {
 				},
 			},
 		},
-		// 월 캔들
 		{
 			[]byte(`[{"market":"KRW-BTC","candle_date_time_utc":"2021-08-04T00:00:00","candle_date_time_kst":"2021-08-04T09:00:00",
 			"opening_price":44950000.00000000,"high_price":45511000.00000000,"low_price":44000000.00000000,"trade_price":45410000.00000000,
